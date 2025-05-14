@@ -23,14 +23,7 @@ jobs:
 
       - name: Upload Cypress screenshots
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3.1.2 # Use a stable version or pin to a specific SHA
         with:
-          name: cypress-screenshots
-          path: cypress/screenshots/
-
-      - name: Upload Cypress videos
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: cypress-videos
-          path: cypress/videos/
+          name: cypress
+
