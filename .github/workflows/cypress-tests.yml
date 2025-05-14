@@ -1,30 +1,16 @@
-name: Cypress Tests
+stages:
+  - test
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
-jobs:
-  cypress-run:
-    runs-on: ubuntu-latest
-    name: Cypress tests
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run Cypress tests
-        uses: cypress-io/github-action@v5
-        with:
-          start: npm start
-          wait-on: 'http://localhost:8080'
-          browser: chrome
-          headless: true
-          record: true
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+cypress-test:
+  stage: test
+  image: cypress/browsers:node16.14.2-chrome99-ff97
+  before_script:
+    - npm install
+  script:
+    - npx cypress run --browser chrome --headless
+  artifacts:
+    when: always
+    paths:
+      - cypress/screenshots/
+      - cypress/videos/
+    expire_in: 7 days
