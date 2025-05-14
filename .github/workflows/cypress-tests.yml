@@ -11,29 +11,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4  # Atualizado para v4
 
       - name: Install dependencies
         run: npm install
 
       - name: Run Cypress tests
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6  # Atualizado para v6
         with:
           browser: chrome
           headless: true
-          # Removido o start e wait-on pois estamos testando um site público
-          # Removido o record pois não é essencial para a execução básica
           
       - name: Upload test artifacts
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4  # Atualizado para v4
         with:
           name: cypress-screenshots
           path: cypress/screenshots
           
       - name: Upload videos
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4  # Atualizado para v4
         with:
           name: cypress-videos
           path: cypress/videos
