@@ -2,15 +2,13 @@ name: Cypress Tests
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
   pull_request:
+    branches: [ "main" ]
 
 jobs:
-  cypress-test:
+  cypress-run:
     runs-on: ubuntu-latest
-    container:
-      image: cypress/browsers:node16.14.2-chrome99-ff97
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -19,11 +17,23 @@ jobs:
         run: npm install
 
       - name: Run Cypress tests
-        run: npx cypress run --browser chrome --headless
-
-      - name: Upload Cypress screenshots
-        if: always()
-        uses: actions/upload-artifact@v3.1.2 # Use a stable version or pin to a specific SHA
+        uses: cypress-io/github-action@v5
         with:
-          name: cypress
-
+          browser: chrome
+          headless: true
+          # Removido o start e wait-on pois estamos testando um site público
+          # Removido o record pois não é essencial para a execução básica
+          
+      - name: Upload test artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+          
+      - name: Upload videos
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-videos
+          path: cypress/videos
