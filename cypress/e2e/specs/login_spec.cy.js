@@ -1,4 +1,4 @@
-/// <reference types="cypress" />
+// cypress/e2e/login_spec.cy.js
 
 describe('Testes de Login no OrangeHRM', () => {
   beforeEach(() => {
