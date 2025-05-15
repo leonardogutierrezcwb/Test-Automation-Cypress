@@ -16,3 +16,6 @@
 // Import commands.js using ES2015 syntax:
 import './commands'
 
+before(() => {
+  cy.intercept({ resourceType: /xhr|fetch/ }, { log: false });
+})

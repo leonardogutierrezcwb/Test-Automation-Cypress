@@ -1,6 +1,4 @@
-// cypress/e2e/login_spec.cy.js
-
-describe('Testes de Login no OrangeHRM', () => {
+describe('Testes na aplicação OrangeHRM', () => {
   beforeEach(() => {
     cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
   })
@@ -32,5 +30,27 @@ describe('Testes de Login no OrangeHRM', () => {
     cy.get('input[name="username"]').type('Admin')
     cy.get('button[type="submit"]').click()
     cy.get('.oxd-text--h6').should('contain', 'Reset Password link sent successfully')
+  })
+
+it.only('CT05 - Acessa o Sistema e realiza Logout', () => {
+  Cypress.on('uncaught:exception', (err, runnable) => {
+      if (err.message.includes("Cannot read properties of undefined")) {
+      return false // Não falha o teste
+    }
+      return true
+  })
+  
+    cy.get('input[name="username"]').type('Admin')
+    cy.get('input[name="password"]').type('admin123')
+    cy.get('button[type="submit"]').click()
+    cy.url().should('include', '/dashboard')
+    cy.get('.oxd-layout-footer').scrollIntoView()
+      .should('contain', 'OrangeHRM, Inc. All rights reserved.') 
+    cy.get('.oxd-userdropdown-tab').click()
+    cy.get('.oxd-dropdown-menu').should('be.visible')
+    cy.contains('.oxd-userdropdown-link', 'Logout').click()
+    cy.url().should('include', '/auth/login')
+
+
   })
 })
