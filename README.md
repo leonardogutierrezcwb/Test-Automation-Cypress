@@ -22,6 +22,7 @@ The project follows best practices recommended for Cypress projects:
 .
 ├── cypress/
 │   ├── e2e/               # End-to-end test cases
+│   ├── e2e/pages          # Page-Objects
 │   ├── fixtures/          # Test data in JSON format
 │   ├── support/           # Custom commands and global setup
 ├── cypress.config.js      # Cypress configuration file
