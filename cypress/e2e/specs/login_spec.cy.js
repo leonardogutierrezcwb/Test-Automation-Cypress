@@ -32,7 +32,7 @@ describe('Testes na aplicação OrangeHRM', () => {
     cy.get('.oxd-text--h6').should('contain', 'Reset Password link sent successfully')
   })
 
-it.only('CT05 - Acessa o Sistema e realiza Logout', () => {
+it('CT05 - Acessa o Sistema e realiza Logout', () => {
   Cypress.on('uncaught:exception', (err, runnable) => {
       if (err.message.includes("Cannot read properties of undefined")) {
       return false // Não falha o teste
